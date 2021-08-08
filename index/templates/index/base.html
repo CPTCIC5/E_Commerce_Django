@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>{% block title %} {% endblock title %}</title>
+</head>
+<body>
+    <header class="text-gray-400 bg-gray-900 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">E-Commerce</span>
+          </a>
+          <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
+            <a href="{% url 'index:home' %}"  class="mr-5 hover:text-white">Home</a>
+            <a href="{% url 'index:cart' %}"  class="mr-5 hover:text-white">Cart</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'users:logout' %}"  class="mr-5 hover:text-white">Logout</a>
+            <a href="{% url 'users:order_history' %}"  class="mr-5 hover:text-white">Order History</a>
+            <a href="{% url 'index:seller' %}"  class="mr-5 hover:text-white">Sell Product</a>
+            {% else %}
+            <a href="{% url 'users:login' %}"  class="mr-5 hover:text-white">Login</a>
+            <a href="{% url 'users:register' %}"  class="mr-5 hover:text-white">Sign Up</a>
+            {% endif %}
+<div class="relative mr-6 my-2">
+  <form method="POST" action="{% url 'index:search' %}">
+    {% csrf_token %}
+  <input type="search"  name="searched" id="searched" class="bg-purple-white shadow rounded border-0 p-3" placeholder="Search Product">
+  <div class="absolute pin-r pin-t mt-3 mr-4 text-purple-lighter">
+  	<svg version="1.1" class="h-4 text-dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 52.966 52.966" style="enable-background:new 0 0 52.966 52.966;" xml:space="preserve">
+    	<path d="M51.704,51.273L36.845,35.82c3.79-3.801,6.138-9.041,6.138-14.82c0-11.58-9.42-21-21-21s-21,9.42-21,21s9.42,21,21,21
+        c5.083,0,9.748-1.817,13.384-4.832l14.895,15.491c0.196,0.205,0.458,0.307,0.721,0.307c0.25,0,0.499-0.093,0.693-0.279
+        C52.074,52.304,52.086,51.671,51.704,51.273z M21.983,40c-10.477,0-19-8.523-19-19s8.523-19,19-19s19,8.523,19,19
+        S32.459,40,21.983,40z"/>
+	</svg>
+  </form>
+  </div>
+</div>
+          </nav>
+        </div>
+      </header>
+    </div>
+    {% block content %} {% endblock content %}
+</body>
+</html>

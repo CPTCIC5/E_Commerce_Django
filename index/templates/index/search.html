@@ -1,0 +1,47 @@
+{% extends "index/base.html" %}
+{% block title %}{{searched}} {% endblock title %}
+{% block content %}
+
+{% if searched %}
+<p>You searched {{searched}}..</p>
+{% endif %}
+
+{% if x1 %}
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap -m-4">
+        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+          {% for i1 in x1 %}
+          <a class="block relative h-48 rounded overflow-hidden">
+            <img  src="{{i1.pic.url}}">
+          </a>
+          <div class="mt-4">
+            <h2 class="text-gray-900 title-font text-lg font-medium">{{i1.title}}</h2>
+            <p class="mt-1">{{i1.price}}</p>
+          </div>
+          <div>
+            <div class="flex justify-corner items-corner">
+                <div class="flex">
+                    <a href="{% url 'index:detail' i1.slug %}"><button type="button"  class="bg-blue-500 text-white px-6 py-2 rounded font-medium mx-3 hover:bg-blue-600 transition duration-200 each-in-out">Order</button> </a>
+                    <button type="button" class="bg-gray-700 text-white px-6 py-2 rounded font-medium mx-3 hover:bg-gray-800 transition duration-200 each-in-out">+ to Cart</button>
+                </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% else %}
+<p> No result found for {{searched}}</p>
+{% endif %}
+{% if x2 %}
+<strong>Users</strong>
+<ul>
+  <li>{{x2.username}}</li>
+</ul>
+{% endif %}
+{% if x3 %}
+{{x3}}
+{% endif %}
+{% endblock content %}

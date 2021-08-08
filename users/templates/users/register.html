@@ -1,0 +1,35 @@
+{% extends "index/base.html" %}
+{% block title %}REGISTER {% endblock title %}
+{% block content %}
+<!-- component -->
+<div class="grid min-h-screen place-items-center">
+    <div class="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12">
+      <h1 class="text-xl font-semibold">Hello there 👋, <span class="font-normal">please fill in your information to continue</span></h1>
+      <form class="mt-6" method="POST">
+          {% csrf_token %}
+        <div class="flex justify-between gap-3">
+          <span class="w-1/2">
+            <label for="first_name" class="block text-xs font-semibold text-gray-600 uppercase">Firstname</label>
+            <input id="first_name" type="text" name="first_name" placeholder="firstname" autocomplete="given-name" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required />
+          </span>
+          <span class="w-1/2">
+            <label for="last_name" class="block text-xs font-semibold text-gray-600 uppercase">Lastname</label>
+          <input id="last_name" type="text" name="last_name" placeholder="Doe" autocomplete="family-name" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required />
+          </span>
+        </div>
+        <label for="email" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">E-mail</label>
+        <input id="email" type="email" name="email" placeholder="john.doe@company.com" autocomplete="email" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required />
+        <label for="username" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Username</label>
+        <input id="username" type="text" name="username" placeholder="John733_" autocomplete="username" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required />
+        <label for="password1" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Password</label>
+        <input id="password1" type="password" name="password1" placeholder="********" type autocomplete="new-password" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required />
+        <label for="password2" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Confirm password</label>
+        <input id="password2" type="password" name="password2" placeholder="********" autocomplete="new-password" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required />
+        <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
+          Sign up
+        </button>
+        <p class="flex justify-between inline-block mt-4 text-xs text-gray-500 cursor-pointer hover:text-black">Already registered?</p>
+      </form>
+    </div>
+  </div>
+{% endblock content %}
