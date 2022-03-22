@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import datetime
 from django.contrib.auth.models import User
 
 class Product(models.Model):
@@ -8,7 +7,7 @@ class Product(models.Model):
     pic=models.ImageField(default='default.jpg',upload_to='images')
     published_by=models.ManyToManyField(User)
     desc=models.TextField()
-    published_date=models.DateTimeField(default=datetime.now())
+    published_date=models.DateTimeField(auto_now_add=True)
     slug=models.SlugField(max_length=35)
 
     def __str__(self):
@@ -23,4 +22,4 @@ class Order(models.Model):
     zipcode=models.IntegerField(default=0)
 
     def __str__(self):
-        return  self.name
+        return self.name

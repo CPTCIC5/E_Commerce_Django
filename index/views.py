@@ -1,10 +1,10 @@
-from django.http.response import HttpResponseRedirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from .models import Product,Order
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from datetime import datetime
 
 def home(request):
     n1=Product.objects.all()
@@ -53,12 +53,13 @@ def seller(request):
         pic=request.POST.get('pic')
         published_by=request.user
         desc=request.POST.get('desc')
-        published_date=request.datetime.now()
         slug=request.POST.get('slug')
         if Product.objects.filter(title=title).exists():
             return messages.warning(request,'TITLE ALREADY EXISTS')
         if Product.objects.filter(slug=slug).exists():
             return messages.warning(request,'ENDPOINT ALREADY TAKEN')
-        added=Product(title=title,price=price,pic=pic,published_by=published_by,desc=desc,published_date=published_date,slug=slug)
+        added=Product(title=title,price=price,pic=pic,published_by=published_by,desc=desc,slug=slug)
         added.save()
+        messages.success(request,'Product added')
+        return HttpResponseRedirect(reverse('index:home'))
     return render(request,'index/sell_product.html')
