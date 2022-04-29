@@ -5,7 +5,7 @@ class Product(models.Model):
     title=models.CharField(max_length=50)
     price=models.IntegerField(default=0)
     pic=models.ImageField(default='default.jpg',upload_to='images')
-    published_by=models.ManyToManyField(User)
+    published_by=models.ForeignKey(User,on_delete=models.CASCADE)
     desc=models.TextField()
     published_date=models.DateTimeField(auto_now_add=True)
     slug=models.SlugField(max_length=35)

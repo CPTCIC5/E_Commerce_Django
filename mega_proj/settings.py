@@ -131,6 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT=Path(BASE_DIR,'media')
 MEDIA_URL='/media/' 
 
+TIME_ZONE='Asia/Kolkata'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL='index:home'

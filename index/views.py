@@ -5,6 +5,7 @@ from .models import Product,Order
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Q
 
 def home(request):
     n1=Product.objects.all()
@@ -20,15 +21,14 @@ def detail(request,slug):
 def search(request):
     if request.method=='POST':
         searched=request.POST.get('searched')
-        x1=Product.objects.filter(title__icontains=searched)
+        print(searched)
+        x1=Product.objects.filter(Q(title__startswith=searched) | Q(title__icontains=searched))
         if len(searched)>200:
             x3="UR TEXT IS TOO LONG"
-            return render(request,'index/search.html',{'x3':x3})
-        else:
-            if not x1:
-                x2=User.objects.get(username__icontains=searched)
-                return render(request,'index/search.html',{'x1':x1,'x2':x2})
-    return render(request,'index/search.html',{'searched':searched,'x1':x1})
+            return render(request,'index/search.html',{'x3':x3,'searched':searched})
+        return render(request,'index/search.html',{'x1':x1,'searched':searched})
+    #return render(request,'index/search.html',{'searched':searched,'x1':x1})
+    return HttpResponseRedirect(reverse('index:home'))
 
 @login_required
 def order(request):
@@ -42,7 +42,9 @@ def order(request):
 
         entry1=Order(name=name,email=email,author=author,phone_no=phone_no,address=address,zipcode=zipcode)
         entry1.save()
-        return HttpResponseRedirect('/')
+        messages.success(request,'ORDERED!')
+        #return HttpResponseRedirect('/')
+        return HttpResponseRedirect(reverse('index:home'))
     return render(request,'index/order.html')
 
 @login_required
